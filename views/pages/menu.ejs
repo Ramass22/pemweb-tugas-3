@@ -1,0 +1,52 @@
+<%- include('../partials/header', { pageTitle: pageTitle }) %>
+    <div class="card" style="margin-top: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h2>warung soto </h2>
+            <a href="/menu-tambah" class="btn btn--primary" style="padding: 0.5rem 1rem; text-decoration: none;
+background: #4702c7; color: white; border-radius: 20px;">+ Tambah menu baru</a>
+        </div>
+        <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse; text-align:
+left;">
+            <thead style="background: #f8fafc;">
+                <tr>
+                    <th>ID</th>
+                    <th>Nama Produk</th>
+                    <th>Harga (Rp)</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (produkList.length===0) { %>
+                    <tr>
+                        <td colspan="6" style="text-align: center;">Belum ada data produk di basis data.</td>
+                    </tr>
+                    <% } else { %>
+                        <% produkList.forEach(item=> { %>
+                            <tr>
+                                <td>
+                                    <%= item.id %>
+                                </td>
+                                <td><strong>
+                                        <%= item.nama_produk %>
+                                    </strong></td>
+                          
+                                <td>
+                                    <%= Number(item.harga).toLocaleString('id-ID') %>
+                                </td>
+                            
+                                <td>
+                                    <a href="/edit/<%= item.id %>"
+                                        style="color: #0284c7; margin-right: 0.5rem;">Edit</a>
+                                    <form action="/hapus/<%= item.id %>" method="POST" style="display: inline;"
+                                        onsubmit="return confirm('Yakin ingin menghapus menu ini?');">
+                                        <button type="submit" style="color: #ef4444; background: none; border: 20px; cursor: pointer;
+text-decoration: underline;">Hapus</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <% }) %>
+                                <% } %>
+            </tbody>
+        </table>
+    </div>
+    <%- include('../partials/footer') %>
